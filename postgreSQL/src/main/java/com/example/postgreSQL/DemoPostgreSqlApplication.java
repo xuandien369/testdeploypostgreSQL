@@ -1,12 +1,17 @@
 package com.example.postgreSQL;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.postgreSQL.entity.Student;
 import com.example.postgreSQL.reponsitory.StudentRes;
 
 @SpringBootApplication
@@ -27,9 +32,14 @@ public class DemoPostgreSqlApplication implements CommandLineRunner {
 //		res.save(student);
 //		res.save(new Student("Teo"));
 	}
-	@GetMapping(value = "/test")
-	public String getContent() {
+	@GetMapping(value = "/content")
+	public List<Student> getContent() {
 		
-		return res.findById(1).get().getName();
+		return res.findAll();
+	}
+	@PostMapping(value = "/content")
+	public void vv(@RequestParam("name")String name) {
+		res.save(new Student(name));
+		
 	}
 }
